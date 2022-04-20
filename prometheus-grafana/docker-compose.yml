@@ -23,6 +23,8 @@ services:
       - alertmanager:alertmanager
     depends_on:
       - cadvisor
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
   node-exporter:
     image: prom/node-exporter

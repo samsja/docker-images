@@ -27,12 +27,6 @@ alerting:
 # Here it's Prometheus itself.
 scrape_configs:
   # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
-
-  - job_name: app
-    scrape_interval: 5s
-    static_configs:
-      - targets: ['host.docker.internal:8000']
-
   - job_name: 'prometheus'
 
     # Override the global default and scrape targets from this job every 5 seconds.
@@ -67,13 +61,13 @@ scrape_configs:
       type: 'A'
       port: 9100
 
-#  - job_name: 'pushgateway'
-#    scrape_interval: 10s
-#    dns_sd_configs:
-#    - names:
-#      - 'tasks.pushgateway'
-#      type: 'A'
-#      port: 9091
+  - job_name: gateway
+    static_configs:
+      - targets: ['host.docker.internal:8000']
+    scrape_interval: 1s
+  
+  - job_name: exec
+    static_configs:
+      - targets: ['host.docker.internal:9000']
+    scrape_interval: 1s
 
-#     static_configs:
-#          - targets: ['node-exporter:9100']
